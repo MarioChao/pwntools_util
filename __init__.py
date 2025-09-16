@@ -50,7 +50,7 @@ class PwnUtil:
 
     def connectRemote(self, host: str, port: int):
         print(f"{self._header}: Connecting to {COLORS['Green']}remote{COLORS['Reset']}!")
-        self._conn = pwn.remote(host, 352)
+        self._conn = pwn.remote(host, port)
 
     def connectLocal(self, path_to_file: str, path_to_interpreter: str = "./.venv/bin/python"):
         print(f"{self._header}: Connecting to {COLORS['Blue']}local{COLORS['Reset']}!")
