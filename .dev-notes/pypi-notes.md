@@ -1,10 +1,20 @@
+# Test packages
+
+Test with output
+
+```sh
+python -m pytest -s
+```
+
+# Build distribution files
+
 Build package & generate distribution
 
 ```sh
 python3 -m build
 ```
 
-## Test package
+# Upload test package
 
 Upload distribution to test server
 
@@ -18,7 +28,7 @@ Install package from test server
 pip install --index-url https://test.pypi.org/simple/ --no-deps pwntools-util
 ```
 
-# Real package
+# Upload real package
 
 Upload distribution to PyPI
 

@@ -6,17 +6,19 @@ from pwntools_util import PwnUtil, _COLORS
 
 # test
 
-if __name__ == "__main__":
+def test_client():
     print(f"[{_COLORS['Blue']}pwntools_util{_COLORS['Reset']}]: Testing pwntools util...")
 
     # Connect
     ppp = PwnUtil()
-    ppp.connectLocal("./test/test-server.py")
+    ppp.connectLocal("./tests/test_server.py")
 
     # Get data
     print(ppp.getline().strip().decode())
     print(ppp.getNumberFromLine())
     print(ppp.getNumberFromLine())
+    a, b = ppp.getAllNumbersFromLine()
+    print(a, b)
     print(ppp.getNumberListFromLine())
     print(ppp.getNumberListFromLine())
 

@@ -30,7 +30,10 @@ def dataToBytes(data: str | bytes | tuple[str] | tuple[bytes]):
 # string utilities
 
 def getNumberFromString(string: str):
-    return int(re.search(r"\d+", string)[0])
+    return int(re.search(r"[+-]?\d+", string)[0])
+
+def getAllNumbersFromString(string: str):
+    return tuple(int(s) for s in re.findall(r"[+-]?\d+", string))
 
 def toNumberList(a_list: list[str]):
     res = [getNumberFromString(x) for x in a_list]
@@ -82,6 +85,9 @@ class PwnUtil:
 
     def getNumberFromLine(self):
         return getNumberFromString(self.getline().decode())
+
+    def getAllNumbersFromLine(self):
+        return getAllNumbersFromString(self.getline().decode())
 
     def getNumberListFromLine(self):
         return toNumberList(getSimpleList(self.getline().decode()))
