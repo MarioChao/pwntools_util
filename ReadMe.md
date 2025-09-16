@@ -14,3 +14,11 @@ ppp.interactive()
 
 ppp.disconnect()
 ```
+
+## Installation
+
+pwntools_util is on the Python Package Index (PyPI). Install it using [pip](https://pip.pypa.io/en/stable/):
+
+```sh
+python3 -m pip install --upgrade pwntools-util
+```

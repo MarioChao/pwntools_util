@@ -9,7 +9,7 @@ import re
 
 # constants
 
-COLORS = {
+_COLORS = {
     'Green': '\033[92m',
     'Blue': '\033[94m',
     'Yellow': '\033[93m',
@@ -44,16 +44,16 @@ def getSimpleList(string: str, separator: str = None):
 class PwnUtil:
     def __init__(self):
         self._conn = None
-        self._header = f"[{COLORS['Yellow']}PwnUtil{COLORS['Reset']}]"
+        self._header = f"[{_COLORS['Yellow']}PwnUtil{_COLORS['Reset']}]"
 
     # Connect / disconnect
 
     def connectRemote(self, host: str, port: int):
-        print(f"{self._header}: Connecting to {COLORS['Green']}remote{COLORS['Reset']}!")
+        print(f"{self._header}: Connecting to {_COLORS['Green']}remote{_COLORS['Reset']}!")
         self._conn = pwn.remote(host, port)
 
     def connectLocal(self, path_to_file: str, path_to_interpreter: str = "./.venv/bin/python"):
-        print(f"{self._header}: Connecting to {COLORS['Blue']}local{COLORS['Reset']}!")
+        print(f"{self._header}: Connecting to {_COLORS['Blue']}local{_COLORS['Reset']}!")
         self._conn = pwn.process([path_to_interpreter, path_to_file])
 
     def disconnect(self):
@@ -85,27 +85,3 @@ class PwnUtil:
 
     def getNumberListFromLine(self):
         return toNumberList(getSimpleList(self.getline().decode()))
-
-# ----- test -----
-
-if __name__ == "__main__":
-    print(f"[{COLORS['Blue']}pwntools_util{COLORS['Reset']}]: Testing pwntools util...")
-
-    # Connect
-    ppp = PwnUtil()
-    ppp.connectLocal("./test.py")
-
-    # Get data
-    print(ppp.getline().strip().decode())
-    print(ppp.getNumberFromLine())
-    print(ppp.getNumberFromLine())
-    print(ppp.getNumberListFromLine())
-    print(ppp.getNumberListFromLine())
-
-    # Send data
-    ppp.getuntil("-> ")
-    ppp.sendline(f"{COLORS['Green']}I <3 pwnUtil{COLORS['Reset']}")
-    print(ppp.getline().strip().decode())
-
-    # Disconnect
-    ppp.disconnect()
