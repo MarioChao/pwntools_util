@@ -51,9 +51,12 @@ class PwnUtil:
 
     # Connect / disconnect
 
-    def connectRemote(self, host: str, port: int):
+    def connectRemote(self, host: str, port: int,
+                      fam = "any", typ = "tcp",
+                      sock=None, ssl=False, ssl_context=None, ssl_args=None, sni=True,
+                      *args, **kwargs):
         print(f"{self._header}: Connecting to {_COLORS['Green']}remote{_COLORS['Reset']}!")
-        self._conn = pwn.remote(host, port)
+        self._conn = pwn.remote(host, port, fam, typ, sock, ssl, ssl_context, ssl_args, sni, *args, **kwargs)
 
     def connectLocal(self, path_to_file: str, path_to_interpreter: str = "./.venv/bin/python"):
         print(f"{self._header}: Connecting to {_COLORS['Blue']}local{_COLORS['Reset']}!")

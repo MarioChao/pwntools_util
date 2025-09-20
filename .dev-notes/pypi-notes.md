@@ -11,7 +11,7 @@ python -m pytest -s
 Build package & generate distribution
 
 ```sh
-python3 -m build
+python -m build
 ```
 
 # Upload test package

@@ -1,5 +1,10 @@
 # Changelogs
 
+# [v0.1.1] Connect Remote Parameters | 2025/09/19
+
+Added the arguments for `pwn.remote()` to `PwnUtil.connectRemote()`.
+
+
 # [v0.1.0] pytest & Improved getting numbers | 2025/09/16
 
 Formatted the file structure to support [pytest](https://docs.pytest.org/en/stable/index.html).
