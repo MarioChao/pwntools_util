@@ -4,50 +4,17 @@
 
 # imports
 
+from .util import string_getter, type_convert
+from .util.text_colors import colorize, TextColorCodes
+
 import pwn
-import re
-
-# constants
-
-_COLORS = {
-    'Green': '\033[92m',
-    'Blue': '\033[94m',
-    'Yellow': '\033[93m',
-    'Reset': '\033[0m',
-}
-
-# type utilities
-
-def dataToBytes(data: str | bytes | tuple[str] | tuple[bytes]):
-    if type(data) is tuple:
-        result = tuple(dataToBytes(d) for d in data)
-    elif type(data) is str:
-        result = data.encode()
-    else:
-        result = data
-    return result
-
-# string utilities
-
-def getNumberFromString(string: str):
-    return int(re.search(r"[+-]?\d+", string)[0])
-
-def getAllNumbersFromString(string: str):
-    return tuple(int(s) for s in re.findall(r"[+-]?\d+", string))
-
-def toNumberList(a_list: list[str]):
-    res = [getNumberFromString(x) for x in a_list]
-    return res
-
-def getSimpleList(string: str, separator: str = None):
-    return re.search(r"\[(.+)\]", string)[1].split(separator)
 
 # class
 
 class PwnUtil:
     def __init__(self):
         self._conn = None
-        self._header = f"[{_COLORS['Yellow']}PwnUtil{_COLORS['Reset']}]"
+        self._header = f"[{colorize('PwnUtil', TextColorCodes.Yellow)}]"
 
     # Connect / disconnect
 
@@ -55,11 +22,11 @@ class PwnUtil:
                       fam = "any", typ = "tcp",
                       sock=None, ssl=False, ssl_context=None, ssl_args=None, sni=True,
                       *args, **kwargs):
-        print(f"{self._header}: Connecting to {_COLORS['Green']}remote{_COLORS['Reset']}!")
+        print(f"{self._header}: Connecting to {colorize('remote', TextColorCodes.Green)}!")
         self._conn = pwn.remote(host, port, fam, typ, sock, ssl, ssl_context, ssl_args, sni, *args, **kwargs)
 
     def connectLocal(self, path_to_file: str, path_to_interpreter: str = "./.venv/bin/python"):
-        print(f"{self._header}: Connecting to {_COLORS['Blue']}local{_COLORS['Reset']}!")
+        print(f"{self._header}: Connecting to {colorize('local', TextColorCodes.Blue)}!")
         self._conn = pwn.process([path_to_interpreter, path_to_file])
 
     def disconnect(self):
@@ -73,24 +40,33 @@ class PwnUtil:
         return self._conn.recvline(timeout=timeout)
 
     def getuntil(self, data: str | bytes | tuple[str] | tuple[bytes], timeout = 5):
-        return self._conn.recvuntil(dataToBytes(data), timeout=timeout)
+        return self._conn.recvuntil(type_convert.dataToBytes(data), timeout=timeout)
 
     def getall(self, timeout = 5):
         return self._conn.recvall(timeout=timeout)
 
     def sendline(self, data: str | bytes):
-        self._conn.sendline(dataToBytes(data))
+        self._conn.sendline(type_convert.dataToBytes(data))
 
     def interactive(self):
         self._conn.interactive()
 
     # Utility
 
-    def getNumberFromLine(self):
-        return getNumberFromString(self.getline().decode())
+    def getFromLine_Int(self):
+        return string_getter.getFromString_Int(self.getline().decode())
 
-    def getAllNumbersFromLine(self):
-        return getAllNumbersFromString(self.getline().decode())
+    def getAllFromLine_Int(self):
+        return string_getter.getAllFromString_Int(self.getline().decode())
 
-    def getNumberListFromLine(self):
-        return toNumberList(getSimpleList(self.getline().decode()))
+    def getListFromLine_Int(self):
+        return string_getter.getListFromString_Int(self.getline().decode())
+    
+    def getFromLine_Float(self):
+        return string_getter.getFromString_Float(self.getline().decode())
+
+    def getAllFromLine_Float(self):
+        return string_getter.getAllFromString_Float(self.getline().decode())
+
+    def getListFromLine_Float(self):
+        return string_getter.getListFromString_Float(self.getline().decode())

@@ -1,5 +1,23 @@
 # Changelogs
 
+# [v0.2.0] Refactor: modules & number functions | 2025/09/22
+
+Refactored global constants and functions into modules under `pwntools_util.util`:
+- `type utilities` => `.util.type_convert`
+- `string utilities` => `.util.string_getter`
+- text colors `_COLORS` => `.util.text_colors`
+
+Refactored getters for `int` numbers:
+- `getNumberFromLine()` => `getFromLine_Int()`
+- `getAllNumbersFromLine()` => `getAllFromLine_Int()`
+- `getNumberListFromLine()` => `getListFromLine_Int()`
+
+New `PwnUtil` features (`float` getters):
+- `getFromLine_Float()`
+- `getAllFromLine_Float()`
+- `getListFromLine_Float()`
+
+
 # [v0.1.1] Connect Remote Parameters | 2025/09/19
 
 Added the arguments for `pwn.remote()` to `PwnUtil.connectRemote()`.

@@ -2,12 +2,13 @@
 
 # imports
 
-from pwntools_util import PwnUtil, _COLORS
+from pwntools_util import PwnUtil
+from pwntools_util.util.text_colors import colorize, TextColorCodes
 
 # test
 
 def test_client():
-    print(f"[{_COLORS['Blue']}pwntools_util{_COLORS['Reset']}]: Testing pwntools util...")
+    print(f"[{colorize('pwntools_util', TextColorCodes.Blue)}]: Testing pwntools util...")
 
     # Connect
     ppp = PwnUtil()
@@ -15,16 +16,16 @@ def test_client():
 
     # Get data
     print(ppp.getline().strip().decode())
-    print(ppp.getNumberFromLine())
-    print(ppp.getNumberFromLine())
-    a, b = ppp.getAllNumbersFromLine()
-    print(a, b)
-    print(ppp.getNumberListFromLine())
-    print(ppp.getNumberListFromLine())
+    print(ppp.getFromLine_Int())
+    print(ppp.getFromLine_Int())
+    print(ppp.getFromLine_Float())
+    print(ppp.getAllFromLine_Int())
+    print(ppp.getListFromLine_Int())
+    print(ppp.getListFromLine_Float())
 
     # Send data
     ppp.getuntil("-> ")
-    ppp.sendline(f"{_COLORS['Green']}I <3 pwnUtil{_COLORS['Reset']}")
+    ppp.sendline(colorize('I <3 pwnUtil', TextColorCodes.Green))
     print(ppp.getline().strip().decode())
 
     # Disconnect

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pwntools_util"
-version = "0.1.1"
+version = "0.2.0"
 authors = [
     {name = "Mario Chao", email = "az0112mario@gmail.com"},
 ]

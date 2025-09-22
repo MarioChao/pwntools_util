@@ -8,7 +8,7 @@ from pwntools_util import PwnUtil
 ppp = PwnUtil()
 ppp.connectRemote('example.com', 352)
 
-n = ppp.getNumberFromLine()
+n = ppp.getFromLine_Int()
 ppp.sendline('the payload')
 ppp.interactive()
 
