@@ -25,9 +25,9 @@ class PwnUtil:
         print(f"{self._header}: Connecting to {colorize('remote', TextColorCodes.Green)}!")
         self._conn = pwn.remote(host, port, fam, typ, sock, ssl, ssl_context, ssl_args, sni, *args, **kwargs)
 
-    def connectLocal(self, path_to_file: str, path_to_interpreter: str = "./.venv/bin/python"):
+    def connectLocal(self, argv = None, *args, **kwargs):
         print(f"{self._header}: Connecting to {colorize('local', TextColorCodes.Blue)}!")
-        self._conn = pwn.process([path_to_interpreter, path_to_file])
+        self._conn = pwn.process(argv, *args, **kwargs)
 
     def disconnect(self):
         if self._conn:

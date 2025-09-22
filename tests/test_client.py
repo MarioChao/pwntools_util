@@ -12,7 +12,7 @@ def test_client():
 
     # Connect
     ppp = PwnUtil()
-    ppp.connectLocal("./tests/test_server.py")
+    ppp.connectLocal(["./.venv/bin/python", "./tests/test_server.py"])
 
     # Get data
     print(ppp.getline().strip().decode())
