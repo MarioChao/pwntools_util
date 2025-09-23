@@ -1,10 +1,18 @@
 # Changelogs
 
+# [v0.2.2] connectLocal_py function | 2025/09/22
+
+New `connectLocal_py()` to easily run a Python process:
+- `connectLocal_py(path_to_file, path_to_interpreter="./.venv/bin/python", *args, **kwargs)`
+
+Tried to make a getter for `hex` numbers / strings, but matching them within a sentence of english letters can be ambiguous.
+
+
 # [v0.2.1] connectLocal argument update | 2025/09/22
 
-Updated the arguments for `PwnUtil.connectUtil()`, allowing more variety of processes to run:
+Updated the arguments for `PwnUtil.connectLocal()`, allowing more variety of processes to run:
 - Old: `connectLocal(path_to_file, path_to_interpreter="./.venv/bin/python")`
-- New: `connectLocal(self, argv = None, *args, **kwargs)`
+- New: `connectLocal(argv = None, *args, **kwargs)`
 
 
 # [v0.2.0] Refactor: modules & number functions | 2025/09/22

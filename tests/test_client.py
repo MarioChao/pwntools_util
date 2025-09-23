@@ -12,16 +12,16 @@ def test_client():
 
     # Connect
     ppp = PwnUtil()
-    ppp.connectLocal(["./.venv/bin/python", "./tests/test_server.py"])
+    ppp.connectLocal_py("./tests/test_server.py")
 
     # Get data
     print(ppp.getline().strip().decode())
-    print(ppp.getFromLine_Int())
     print(ppp.getFromLine_Int())
     print(ppp.getFromLine_Float())
     print(ppp.getAllFromLine_Int())
     print(ppp.getListFromLine_Int())
     print(ppp.getListFromLine_Float())
+    print(int(ppp.getline().split()[-1], 16))
 
     # Send data
     ppp.getuntil("-> ")

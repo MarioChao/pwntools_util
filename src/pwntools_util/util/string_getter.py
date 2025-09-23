@@ -33,8 +33,7 @@ def getAllFromString_Int(string: str):
     return tuple(int(s) for s in getAllFromString(string, Patterns.INTEGER.value))
 
 def toList_Int(a_list: list[str]):
-    res = [getFromString_Int(x) for x in a_list]
-    return res
+    return [getFromString_Int(x) for x in a_list]
 
 def getListFromString_Int(string: str):
     return toList_Int(getSimpleListFromString(string))
@@ -48,8 +47,7 @@ def getAllFromString_Float(string: str):
     return tuple(float(s) for s in getAllFromString(string, Patterns.FLOAT.value))
 
 def toList_Float(a_list: list[str]):
-    res = [getFromString_Float(x) for x in a_list]
-    return res
+    return [getFromString_Float(x) for x in a_list]
 
 def getListFromString_Float(string: str):
     return toList_Float(getSimpleListFromString(string))

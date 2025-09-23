@@ -16,7 +16,7 @@ class PwnUtil:
         self._conn = None
         self._header = f"[{colorize('PwnUtil', TextColorCodes.Yellow)}]"
 
-    # Connect / disconnect
+    # connect
 
     def connectRemote(self, host: str, port: int,
                       fam = "any", typ = "tcp",
@@ -29,12 +29,17 @@ class PwnUtil:
         print(f"{self._header}: Connecting to {colorize('local', TextColorCodes.Blue)}!")
         self._conn = pwn.process(argv, *args, **kwargs)
 
+    def connectLocal_py(self, path_to_file: str, path_to_interpreter = "./.venv/bin/python", *args, **kwargs):
+        self.connectLocal([path_to_interpreter, path_to_file], *args, **kwargs)
+
+    # disconnect
+
     def disconnect(self):
         if self._conn:
             self._conn.close()
             print(f"{self._header}: Disconnected!")
 
-    # Get & send
+    # get & send
 
     def getline(self, timeout = 5):
         return self._conn.recvline(timeout=timeout)
@@ -51,7 +56,9 @@ class PwnUtil:
     def interactive(self):
         self._conn.interactive()
 
-    # Utility
+    # ----- utility -----
+
+    # integer
 
     def getFromLine_Int(self):
         return string_getter.getFromString_Int(self.getline().decode())
@@ -61,7 +68,9 @@ class PwnUtil:
 
     def getListFromLine_Int(self):
         return string_getter.getListFromString_Int(self.getline().decode())
-    
+
+    # float
+
     def getFromLine_Float(self):
         return string_getter.getFromString_Float(self.getline().decode())
 
