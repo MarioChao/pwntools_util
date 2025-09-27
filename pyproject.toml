@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pwntools_util"
-version = "0.2.2"
+version = "0.2.3"
 authors = [
     {name = "Mario Chao", email = "az0112mario@gmail.com"},
 ]
-description = "pwntools wrapper with bytes casting and common utils"
+description = "pwntools wrapper with quality-of-life and common utils"
 readme = "ReadMe.md"
 keywords = ["pwntools", "exploit", "ctf", "flag"]
 

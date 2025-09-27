@@ -8,6 +8,7 @@ from .util import string_getter, type_convert
 from .util.text_colors import colorize, TextColorCodes
 
 import pwn
+import subprocess
 
 # class
 
@@ -15,6 +16,8 @@ class PwnUtil:
     def __init__(self):
         self._conn = None
         self._header = f"[{colorize('PwnUtil', TextColorCodes.Yellow)}]"
+        self._isRemote = None
+        self._isLocal = None
 
     # connect
 
@@ -24,10 +27,14 @@ class PwnUtil:
                       *args, **kwargs):
         print(f"{self._header}: Connecting to {colorize('remote', TextColorCodes.Green)}!")
         self._conn = pwn.remote(host, port, fam, typ, sock, ssl, ssl_context, ssl_args, sni, *args, **kwargs)
+        self._isRemote = True
+        self._isLocal = False
 
     def connectLocal(self, argv = None, *args, **kwargs):
         print(f"{self._header}: Connecting to {colorize('local', TextColorCodes.Blue)}!")
         self._conn = pwn.process(argv, *args, **kwargs)
+        self._isLocal = True
+        self._isRemote = False
 
     def connectLocal_py(self, path_to_file: str, path_to_interpreter = "./.venv/bin/python", *args, **kwargs):
         self.connectLocal([path_to_interpreter, path_to_file], *args, **kwargs)
@@ -37,6 +44,7 @@ class PwnUtil:
     def disconnect(self):
         if self._conn:
             self._conn.close()
+            self._isRemote = self._isLocal = False
             print(f"{self._header}: Disconnected!")
 
     # get & send
@@ -57,6 +65,20 @@ class PwnUtil:
         self._conn.interactive()
 
     # ----- utility -----
+
+    # proof of work
+
+    def solve_redpwn_pow(self, message_before_command = "proof of work:"):
+        self.getuntil(message_before_command)
+        proof_command = self.getline().strip()
+        for _ in range(10):
+            if proof_command != b'':
+                break
+            proof_command = self.getline().strip()
+        print(f"{self._header}: <{colorize('pow call', TextColorCodes.Green)}>: {proof_command.decode()}")
+        solution = subprocess.check_output(["sh", "-c", proof_command]).strip()
+        print(f"{self._header}: <{colorize('solution', TextColorCodes.Green)}>: {solution.decode()}")
+        self.sendline(solution)
 
     # integer
 

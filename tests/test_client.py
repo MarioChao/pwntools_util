@@ -7,6 +7,20 @@ from pwntools_util.util.text_colors import colorize, TextColorCodes
 
 # test
 
+def test_pow():
+    print(f"[{colorize('pwntools_util', TextColorCodes.Blue)}]: Testing pow solver")
+
+    # Connect
+    # Challenge from corCTF 2025 https://github.com/Crusaders-of-Rust/corctf-2025-public-challenge-repo/blob/master/crypto/rules/server.py
+    ppp = PwnUtil()
+    ppp.connectRemote('ctfi.ng', 31126)
+
+    # Solve pow
+    ppp.solve_redpwn_pow()
+
+    # Disconnect
+    ppp.disconnect()
+
 def test_client():
     print(f"[{colorize('pwntools_util', TextColorCodes.Blue)}]: Testing pwntools util...")
 

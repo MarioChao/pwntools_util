@@ -1,5 +1,14 @@
 # Changelogs
 
+# [v0.2.3] _isLocal & _isRemote & Solve redpwn pow | 2025/09/27
+
+Attributes `_isLocal` and `_isRemote` to indicate if a `PwnUtil` connection is made locally or remotely.
+
+New `solve_redpwn_pow()` to handle solving redpwn's [proof-of-work](https://github.com/redpwn/pow).
+
+Added more high-intensity colors to `text_colors.py`.
+
+
 # [v0.2.2] connectLocal_py function | 2025/09/22
 
 New `connectLocal_py()` to easily run a Python process:
